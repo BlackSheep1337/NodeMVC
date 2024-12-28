@@ -1,5 +1,5 @@
 import sequelize from "./models";
-import User from "./models/User";
+import User from "./models/UserModel";
 
 
 
