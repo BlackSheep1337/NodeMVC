@@ -5,16 +5,20 @@ import userRoutes from './routes/UserRoutes';
 import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 9000;
 
 app.use(bodyParser.json());
 app.use("/users", userRoutes);
 app.use(errorHandler);
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   app
-    .listen(PORT)
-    .on("listening", () => console.log(`Server running at http://localhost:${PORT}`));
+    .listen(PORT, () => {
+      console.log(`Server running at http://localhost:${PORT}`);
+    })
+    .on("error", (err) => {
+      console.error(`Server failed to start: ${err}`);
+    });
 });
 
 export default app;
